@@ -26,6 +26,6 @@
   (GET "/donotcall/:number" [number] (check number)))
 
 (defn -main []
-  (reset! db (or (System/getenv "DATABASE_URL")
-                  "postgresql://localhost:5432/donotcall"))
+  (if-let [database-url (System/getenv "DATABASE_URL")]
+    (reset! db database-url))
   (ring/run-jetty #'routes {:port 3001 :join? false}))
