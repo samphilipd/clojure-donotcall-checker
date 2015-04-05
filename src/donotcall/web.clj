@@ -3,17 +3,17 @@
             [compojure.core :refer [defroutes GET]]
             [ring.adapter.jetty :as ring]
             [alex-and-georges.debug-repl :refer :all]
-            [clojure.java.jdbc :as sql]))
+            [clojure.java.jdbc :as sql])
+  (:gen-class))
 
-(def db (or (System/getenv "DATABASE_URL")
-            "postgresql://localhost:5432/donotcall"))
+(def db (atom "postgresql://localhost:5432/donotcall")) ;; define it for development
 
 (defn number-exists?
   "Returns the number as a string if it exists, otherwise return false"
   [number]
-  (let [{number :number} (first (sql/query db [(str "select * from do_not_call_phones where number = " number)]))]
-    (if number
-      number
+  (let [result (first (sql/query @db ["SELECT number FROM do_not_call_phones WHERE number = ?" number]))]
+    (if result
+      {number :number}
       false)))
 
 (defn check
@@ -26,5 +26,6 @@
   (GET "/donotcall/:number" [number] (check number)))
 
 (defn -main []
-  (defonce server
-    (ring/run-jetty #'routes {:port 3001 :join? false})))
+  (reset! db (or (System/getenv "DATABASE_URL")
+                  "postgresql://localhost:5432/donotcall"))
+  (ring/run-jetty #'routes {:port 3001 :join? false}))

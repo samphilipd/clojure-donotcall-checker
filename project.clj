@@ -11,4 +11,7 @@
                  [org.clojars.gjahad/debug-repl "0.3.3"]
                  [hiccup "1.0.5"]]
   :plugins [[lein-ring "0.8.11"]]
-  :ring {:handler donotcall.web/routes})
+  :ring {:handler donotcall.web/routes}
+  :main ^:skip-aot donotcall.web
+  :uberjar-name "donotcall-standalone.jar"
+  :profiles {:uberjar {:aot :all}})
