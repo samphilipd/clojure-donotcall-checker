@@ -1,17 +1,15 @@
 (ns donotcall.web
-  (:require [donotcall.core :refer :all]
-            [compojure.core :refer [defroutes GET]]
+  (:require [compojure.core :refer [defroutes GET]]
+            [donotcall.db :as db]
             [ring.adapter.jetty :as ring]
             [alex-and-georges.debug-repl :refer :all]
             [clojure.java.jdbc :as sql])
   (:gen-class))
 
-(def db (atom "postgresql://localhost:5432/donotcall")) ;; define it for development
-
 (defn number-exists?
   "Returns the number as a string if it exists, otherwise return false"
   [number]
-  (let [result (first (sql/query @db ["SELECT number FROM do_not_call_phones WHERE number = ?" number]))]
+  (let [result (first (sql/query db/spec ["SELECT number FROM do_not_call_phones WHERE number = ?" number]))]
     (if result
       {number :number}
       false)))
@@ -26,6 +24,4 @@
   (GET "/donotcall/:number" [number] (check number)))
 
 (defn -main []
-  (if-let [database-url (System/getenv "DATABASE_URL")]
-    (reset! db database-url))
-  (ring/run-jetty #'routes {:port 3001 :join? false}))
+  (ring/run-jetty #'routes {:port 3000 :join? false}))

@@ -9,7 +9,8 @@
                  [ring/ring-jetty-adapter "1.3.2"]
                  [compojure "1.3.3"]
                  [org.clojars.gjahad/debug-repl "0.3.3"]
-                 [hiccup "1.0.5"]]
+                 [hiccup "1.0.5"]
+                 [clojure.jdbc/clojure.jdbc-c3p0 "0.3.2"]]
   :plugins [[lein-ring "0.8.11"]]
   :ring {:handler donotcall.web/routes}
   :main ^:skip-aot donotcall.web
