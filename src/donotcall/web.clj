@@ -4,7 +4,6 @@
             [ring.adapter.jetty :as ring]
             [alex-and-georges.debug-repl :refer :all]
             [clojure.java.jdbc :as sql])
-  (:import [javax.naming Context InitialContext])
   (:gen-class))
 
 (defn number-exists?
@@ -22,7 +21,7 @@
       "{}"))
 
 (defroutes routes
-  (GET "/donotcall/:number" [number] (check number))
+  (GET "/donotcall/:number" [number] (check number)))
 
 (defn -main []
   (ring/run-jetty #'routes {:port 3000 :join? false}))

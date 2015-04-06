@@ -1,5 +1,6 @@
 (ns donotcall.db
-  (:import com.mchange.v2.c3p0.ComboPooledDataSource)
+  (:import com.mchange.v2.c3p0.ComboPooledDataSource
+           [javax.naming Context InitialContext])
   (:require [clojure.java.jdbc :as jdbc]
             [jdbc.pool.c3p0    :as pool]))
 
