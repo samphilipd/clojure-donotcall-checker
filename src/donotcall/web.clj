@@ -17,8 +17,10 @@
 (defn check
   [number]
     (if (number-exists? number)
-      (str "{number: " number "}")
-      "{}"))
+      {:status 200
+       :body (str "{number: " number "}")}
+      {:status 404
+       :body "{}"}))
 
 (defroutes routes
   (GET "/donotcall/:number" [number] (check number)))
