@@ -12,7 +12,7 @@
                  [hiccup "1.0.5"]
                  [clojure.jdbc/clojure.jdbc-c3p0 "0.3.2"]]
   :plugins [[lein-ring "0.8.11"]]
-  :ring {:handler donotcall.web/routes}
+  :ring {:handler donotcall.web/routes :uberwar-name "donotcall-standalone.war"}
   :main ^:skip-aot donotcall.web
   :uberjar-name "donotcall-standalone.jar"
   :profiles {:uberjar {:aot :all}})
