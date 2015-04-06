@@ -9,7 +9,7 @@
 (def db-uri
   (java.net.URI.
     (try
-      (. (. (InitialContext.) lookup "java:comp/env") lookup "DATABASE_URL")
+      (. (. (InitialContext.) lookup "java:comp/env") lookup "DATABASE_URL") ; will pull environment variables from a Tomcat server
       (catch javax.naming.NoInitialContextException e development-db-string)))) ;; define it for development
 
 (def user-and-password
