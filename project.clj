@@ -10,7 +10,7 @@
                  [compojure "1.3.3"]
                  [org.clojars.gjahad/debug-repl "0.3.3"]
                  [hiccup "1.0.5"]
-                 [clojure.jdbc/clojure.jdbc-c3p0 "0.3.2"]]
+                 [org.clojars.seivadmas/clojure.jdbc-c3p0 "0.3.2-sam"]]
   :plugins [[lein-ring "0.8.11"]]
   :ring {:handler donotcall.web/routes :uberwar-name "donotcall-standalone.war"}
   :main ^:skip-aot donotcall.web

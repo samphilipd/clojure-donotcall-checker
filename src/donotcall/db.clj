@@ -7,21 +7,10 @@
 (def development-db-string "postgresql://localhost:5432/donotcall")
 
 (def db-uri
-  (java.net.URI.
-    (try
-      (. (. (InitialContext.) lookup "java:comp/env") lookup "DATABASE_URL") ; will pull environment variables from a Tomcat server
-      (catch javax.naming.NoInitialContextException e development-db-string)))) ;; define it for development
-
-(def user-and-password
-  (if (nil? (.getUserInfo db-uri))
-    nil (clojure.string/split (.getUserInfo db-uri) #":")))
+  (try
+    (. (. (InitialContext.) lookup "java:comp/env") lookup "DATABASE_URL") ; will pull environment variables from a Tomcat server
+    (catch javax.naming.NoInitialContextException e development-db-string))) ;; define it for development
 
 (def spec
-  (pool/make-datasource-spec
-    {:classname "org.postgresql.Driver"
-    :subprotocol "postgresql"
-    :user (get user-and-password 0)
-    :password (get user-and-password 1)
-    :subname (if (= -1 (.getPort db-uri))
-                (format "//%s%s" (.getHost db-uri) (.getPath db-uri))
-                (format "//%s:%s%s" (.getHost db-uri) (.getPort db-uri) (.getPath db-uri)))}))
+  (atom
+    (pool/make-datasource-spec db-uri)))
