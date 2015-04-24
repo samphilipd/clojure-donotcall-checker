@@ -14,7 +14,7 @@
 (defn number-exists?
   "Returns the number as a string if it exists, otherwise return false"
   [number]
-  (let [result (first (sql/query db/spec [ number]))]
+  (let [result (first (sql/query db/spec ["SELECT number FROM do_not_call_phones WHERE number = ?" number]))]
     (if result
       {number :number}
       false)))
