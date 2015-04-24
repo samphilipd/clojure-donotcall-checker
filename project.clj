@@ -1,4 +1,4 @@
-(defproject donotcall "0.0.2"
+(defproject donotcall "0.0.3"
   :description "A simple REST app for checking if a number is in the telemarketing list or not."
   :url "http://github.com/sam/clojure-donotcall-checker"
   :license {:name "Eclipse Public License"

@@ -52,7 +52,7 @@
   [number]
     (if (number-exists? number)
       {:status 200
-       :body (str "{number: " number "}")}
+       :body (str "{\"number\": \"" number "\"}")}
       {:status 404
        :body "{}"}))
 
