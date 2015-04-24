@@ -20,9 +20,11 @@ Designed to run on Apache Tomcat, but can also be run standalone with a Jetty se
 ## To run standalone
 
 1. `lein uberjar`
-2. `DATABASE_URL="postgresql://user:pass@yourhost/yourdb" target/donotcall-standalone.jar
+2. `DATABASE_URL="postgresql://user:pass@yourhost/yourdb" target/donotcall-standalone.jar`
 
 # Querying
+
+## Single numbers
 
 Query single numbers like this:
 
@@ -35,6 +37,8 @@ If the number is in the list, will return
 if the number is not in the list, will return
 
 `{}` (status 404)
+
+## Batch queries with multiple numbers
 
 Query multiple numbers in batch like this:
 
